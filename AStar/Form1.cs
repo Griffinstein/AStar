@@ -18,45 +18,60 @@ namespace AStar
         private Vector2D _mapOffset = new Vector2D(0,0);
         Graphics g;
         private int _tileSize;
+        private int _WIDTH = 800;
+        private int _HEIGHT = 600;
         private Mobile _player;
         private bool _updateWorld = true;
 
         public Form1()
         {
             InitializeComponent();
-            this.MaximumSize = new Size(800, 600);
-            this.MinimumSize = new Size(800, 600);
+            this.MaximumSize = new Size(_WIDTH, _HEIGHT);
+            this.MinimumSize = new Size(_WIDTH, _HEIGHT);
 
             _tileSize = 50;
 
             _player = new Mobile(1,1);
 
-            _grid = new int[10, 10] {   {1,1,1,1,1,1,1,1,1,1},
-                                        {1,0,1,0,1,0,1,0,1,1},
-                                        {1,0,0,0,1,0,0,0,0,1},
-                                        {1,0,1,1,1,1,1,1,0,1},
-                                        {1,0,1,0,0,1,0,0,0,1},
-                                        {1,0,1,0,0,1,0,1,1,1},
-                                        {1,0,1,0,0,0,0,0,0,1},                                          
-                                        {1,0,1,1,1,1,1,0,0,1},
-                                        {1,0,0,0,0,0,0,0,0,1},
-                                        {1,1,1,1,1,1,1,1,1,1}};
+            _grid = new int[20, 20] {   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                                        {1,0,1,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,1,1},
+                                        {1,0,0,0,1,0,0,0,0,1,0,1,1,1,1,1,1,0,1,1},
+                                        {1,0,1,1,1,1,1,1,0,1,0,1,0,0,0,0,1,0,1,1},
+                                        {1,0,1,0,0,1,0,0,0,1,0,1,0,1,1,0,1,0,1,1},
+                                        {1,0,1,0,0,1,0,1,1,1,0,1,1,1,1,0,1,0,1,1},
+                                        {1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,1,1},
+                                        {1,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,1},
+                                        {1,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,1,0,1,1},
+                                        {1,0,0,0,0,0,0,0,0,1,1,0,1,0,1,1,1,0,1,1},
+                                        {1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+                                        {1,0,1,0,1,0,0,0,0,1,1,0,1,0,1,1,0,0,1,1},
+                                        {1,0,1,1,1,0,0,0,0,1,1,0,0,0,1,1,0,0,1,1},
+                                        {1,0,0,0,0,0,1,0,0,1,1,1,1,1,1,1,0,0,1,1},
+                                        {1,0,1,0,0,1,1,1,0,1,1,1,1,1,1,0,0,0,1,1},
+                                        {1,0,1,0,0,0,1,0,0,1,1,1,1,1,0,0,0,1,1,1},
+                                        {1,0,1,0,0,0,0,0,0,1,1,1,1,0,0,0,1,1,1,1},
+                                        {1,0,1,1,1,1,0,0,0,1,1,1,0,0,0,1,1,1,1,1},
+                                        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1},
+                                        {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Red);
+            System.Drawing.SolidBrush myPlayerBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Green);
             System.Drawing.Graphics formGraphics = this.CreateGraphics();
             g = e.Graphics;
+
+            formGraphics.FillRectangle(myPlayerBrush, _player.Draw(_mapOffset));
 
             if (_updateWorld)
             {
                 int i;
                 int j;
 
-                for (i = 0; i < 10; i++)
+                for (i = 0; i < 20; i++)
                 {
-                    for (j = 0; j < 10; j++)
+                    for (j = 0; j < 20; j++)
                     {
                         if (_grid[i, j] == 1)
                         {
@@ -71,7 +86,6 @@ namespace AStar
                     }
                 }
             }
-            g.DrawRectangle(Pens.Green, _player.Draw(_mapOffset));
 
             myBrush.Dispose();
             formGraphics.Dispose();
@@ -79,43 +93,54 @@ namespace AStar
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            //int PlayerX = _player.Location.X;
-            //int PlayerY = _player.Location.Y;
 
             switch (e.KeyData)
             {
                 case Keys.Up:
-                    //if (YOffset <= 0)
-                    //{
-                    _mapOffset.y = _mapOffset.y + 10;
+                    if (_mapOffset.y < 0)
+                    {
+                        _mapOffset.y = _mapOffset.y + 10;
                         this.Refresh();
-                    //}
+                    }
+                    else
+                    {
+                       _mapOffset.y = 0;
+                       this.Refresh();
+                    }
                     break;
                 case Keys.Down:
-                    if (_mapOffset.y > 0)
+                    if (_mapOffset.y > _HEIGHT - (20 * 50 + 40))
                     {
                         _mapOffset.y = _mapOffset.y - 10;
                         this.Refresh();
                     }
                     else
                     {
-                        _mapOffset.y = 0;
+                        _mapOffset.y = _HEIGHT - (20 * 50 + 40);
                         this.Refresh();
                     }
                     break;
                 case Keys.Left:
-                    _mapOffset.x = _mapOffset.x + 10;
-                    this.Refresh();
+                    if (_mapOffset.x < 0)
+                    {
+                        _mapOffset.x = _mapOffset.x + 10;
+                        this.Refresh();
+                    }
+                    else
+                    {
+                        _mapOffset.x = 0;
+                        this.Refresh();
+                    }
                     break;
                 case Keys.Right:
-                    if (_mapOffset.x > 0)
+                    if (_mapOffset.x > _WIDTH - (20 * 50))
                     {
                         _mapOffset.x = _mapOffset.x - 10;
                         this.Refresh();
                     }
                     else
                     {
-                        _mapOffset.x = 0;
+                        _mapOffset.x = _WIDTH - (20 * 50);
                         this.Refresh();
                     }
                     break;

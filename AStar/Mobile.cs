@@ -13,7 +13,7 @@ namespace AStar
         private Rectangle _icon = new Rectangle(0, 0, 25, 25);
         private List<Node> _openList = new List<Node>();
         private int _speed = 5;
-        public int[,] tempGrid = new int[10, 10];
+        public int[,] tempGrid = new int[20, 20];
         private Node _path;
         private bool _foundPath = false;
 
@@ -63,9 +63,9 @@ namespace AStar
             int i;
             int j;
 
-            for (i = 0; i < 10; i++)
+            for (i = 0; i < 20; i++)
             {
-                for (j = 0; j < 10; j++)
+                for (j = 0; j < 20; j++)
                 {
                     tempGrid[i,j] = grid[j,i];
                 }
