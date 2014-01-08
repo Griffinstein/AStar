@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
-using System.ComponentModel;
-using System.Threading.Tasks;
 
 namespace AStar
 {
@@ -42,24 +38,17 @@ namespace AStar
         }
 
         public void Update(){
-            //float x = _currentPosition.getX() + _speed;
-            //_currentPosition.setX(x);
-            //if (_currentCoord != _targetCoord)
-            //{
-
-            //}
-
             if (_foundPath)
             {
-                if (_currentPosition.x != (_path.XCoord() * 50 + (float)12.5) || _currentPosition.y != (_path.YCoord() * 50 + (float)12.5))
-                    MoveToCoord((int)_path.XCoord(), (int)_path.YCoord());
+                if (_currentPosition.x != (_path.x * 50 + (float)12.5) || _currentPosition.y != (_path.y * 50 + (float)12.5))
+                    MoveToCoord((int)_path.x, (int)_path.y);
                 else
                 {
-                    _currentCoord.x = _path.YCoord();
-                    _currentCoord.y = _path.XCoord();
+                    _currentCoord.x = _path.y;
+                    _currentCoord.y = _path.x;
 
-                    if (_path.HasParent())
-                        _path = _path.Parent();
+                    if (_path.HasParent)
+                        _path = _path.Parent;
                     else
                     {
                         _foundPath = false;
@@ -97,8 +86,8 @@ namespace AStar
 
         public void AddAdjacentNodesToOpenList(Node node)
         {
-            int x = node.XCoord();
-            int y = node.YCoord();
+            int x = node.x;
+            int y = node.y;
             _openList.Remove(node);
             tempGrid[x, y] = 3;
 
@@ -118,7 +107,7 @@ namespace AStar
                 Node next = _openList[0];
                 for (int i = 1; i > _openList.Count; i++)
                 {
-                    if (next.F() > _openList[i].F())
+                    if (next.f > _openList[i].f)
                         next = _openList[i];
                 }
 
@@ -139,9 +128,9 @@ namespace AStar
                 {
                     for (int i = 0; i > _openList.Count; i++)
                     {
-                        if (_openList[i].XCoord() == x && _openList[i].YCoord() == y)
+                        if (_openList[i].x == x && _openList[i].y == y)
                         {
-                            if (_openList[i].G() <= nextNewNode.G())
+                            if (_openList[i].g <= nextNewNode.g)
                                 break;
                             else
                                 _openList[i] = nextNewNode;

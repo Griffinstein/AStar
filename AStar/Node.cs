@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AStar
 {
@@ -49,36 +46,40 @@ namespace AStar
             _coords = new Vector2D(x, y);
         }
 
-        public int F()
+        public int f
         {
-            return _f;
+            get { return _f; }
+            set { _f = value; }
         }
 
-        public int G()
+        public int g
         {
-            return _g;
+            get { return _g; }
+            set { _g = value; }
         }
 
-        public Node Parent()
+        public bool HasParent
         {
-            return _parent;
+            get { return _hasParent; }
+            set { _hasParent = value; }
         }
 
-        public bool HasParent()
+        public Node Parent
         {
-            return _hasParent;
+            get { return _parent; }
+            set { _parent = value; }
         }
 
-        public int XCoord()
+        public int x
         {
-            int i = (int)_coords.x;
-            return i;
+            get { return (int)_coords.x; }
+            set { _coords.x = value; }
         }
 
-        public int YCoord()
+        public int y
         {
-            int i = (int)_coords.y;
-            return i;
+            get { return (int)_coords.y; }
+            set { _coords.y = value; }
         }
     }
 }
