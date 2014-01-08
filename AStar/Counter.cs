@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace AStar
 {
-    class Mobile
+    class Counter
     {
         private Vector2D _currentCoord = new Vector2D();
         private Vector2D _targetCoord = new Vector2D();
@@ -17,7 +17,7 @@ namespace AStar
         private Node _path;
         private bool _foundPath = false;
 
-        public Mobile(int x, int y)
+        public Counter(int x, int y)
         {
             _currentCoord.x = x;
             _currentCoord.y = y;
@@ -27,7 +27,7 @@ namespace AStar
             _currentPosition.y = (float)(y * 50 + 12.5);
         }
 
-        public Mobile()
+        public Counter()
         {
             _currentCoord.x = 0;
             _currentCoord.y = 0;

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AStar
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
 
         private Rectangle _tile = new Rectangle(0, 0, 0, 0);
@@ -20,10 +20,10 @@ namespace AStar
         private int _tileSize;
         private int _WIDTH = 800;
         private int _HEIGHT = 600;
-        private Mobile _player;
+        private Counter _player;
         private bool _updateWorld = true;
 
-        public Form1()
+        public Main()
         {
             InitializeComponent();
             this.MaximumSize = new Size(_WIDTH, _HEIGHT);
@@ -31,7 +31,7 @@ namespace AStar
 
             _tileSize = 50;
 
-            _player = new Mobile(1,1);
+            _player = new Counter(1,1);
 
             _grid = new int[20, 20] {   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                                         {1,0,1,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,1,1},

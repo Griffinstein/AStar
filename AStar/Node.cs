@@ -7,9 +7,9 @@ namespace AStar
     {
         private Vector2D _coords;
         private Node _parent;
-        private int _heuristic;
-        private int _g;
-        private int _f;
+        private int _heuristic; //Distance from Target Node
+        private int _g;         //Distance traveled from start
+        private int _f;         //Combination of G and H
         private bool _hasParent;
 
         public Node()
