@@ -19,7 +19,6 @@ namespace AStar
         Graphics g;
         private int _tileSize;
         private Mobile _player;
-        private Mobile _enemy;
         private bool _updateWorld = true;
 
         public Form1()
@@ -31,7 +30,6 @@ namespace AStar
             _tileSize = 50;
 
             _player = new Mobile(1,1);
-            _enemy = new Mobile(2,2);
 
             _grid = new int[10, 10] {   {1,1,1,1,1,1,1,1,1,1},
                                         {1,0,1,0,1,0,1,0,1,1},
@@ -62,19 +60,18 @@ namespace AStar
                     {
                         if (_grid[i, j] == 1)
                         {
-                            _tile = new Rectangle(j * _tileSize + (int)_mapOffset.getX(), i * _tileSize + (int)_mapOffset.getY(), _tileSize, _tileSize);
+                            _tile = new Rectangle(j * _tileSize + (int)_mapOffset.x, i * _tileSize + (int)_mapOffset.y, _tileSize, _tileSize);
                             formGraphics.FillRectangle(myBrush, _tile);
                         }
                         else if (_grid[i, j] == 0)
                         {
-                            _tile = new Rectangle(j * _tileSize + (int)_mapOffset.getX(), i * _tileSize + (int)_mapOffset.getY(), _tileSize, _tileSize);
+                            _tile = new Rectangle(j * _tileSize + (int)_mapOffset.x, i * _tileSize + (int)_mapOffset.y, _tileSize, _tileSize);
                             g.DrawRectangle(Pens.Blue, _tile);
                         }
                     }
                 }
             }
             g.DrawRectangle(Pens.Green, _player.Draw(_mapOffset));
-            g.DrawRectangle(Pens.Purple, _enemy.Draw(_mapOffset));
 
             myBrush.Dispose();
             formGraphics.Dispose();
@@ -90,35 +87,35 @@ namespace AStar
                 case Keys.Up:
                     //if (YOffset <= 0)
                     //{
-                    _mapOffset.setY(_mapOffset.getY() + 10);
+                    _mapOffset.y = _mapOffset.y + 10;
                         this.Refresh();
                     //}
                     break;
                 case Keys.Down:
-                    if (_mapOffset.getY() > 0)
+                    if (_mapOffset.y > 0)
                     {
-                        _mapOffset.setY(_mapOffset.getY() - 10);
+                        _mapOffset.y = _mapOffset.y - 10;
                         this.Refresh();
                     }
                     else
                     {
-                        _mapOffset.setY(0);
+                        _mapOffset.y = 0;
                         this.Refresh();
                     }
                     break;
                 case Keys.Left:
-                    _mapOffset.setX(_mapOffset.getX() + 10);
+                    _mapOffset.x = _mapOffset.x + 10;
                     this.Refresh();
                     break;
                 case Keys.Right:
-                    if (_mapOffset.getX() > 0)
+                    if (_mapOffset.x > 0)
                     {
-                        _mapOffset.setX(_mapOffset.getX() - 10);
+                        _mapOffset.x = _mapOffset.x - 10;
                         this.Refresh();
                     }
                     else
                     {
-                        _mapOffset.setX(0);
+                        _mapOffset.x = 0;
                         this.Refresh();
                     }
                     break;
@@ -136,20 +133,14 @@ namespace AStar
         private void MyTimer_Tick(object sender, EventArgs e)
         {
             _player.Update();
-            _enemy.Update();
-
-            //if (_enemy.GetCurrentCoords().getX() == 8 && _enemy.GetCurrentCoords().getY() == 4)
-            //   _enemy.PathFinding(4, 4, _grid);
 
             this.Refresh();
-            //MessageBox.Show("The form will now be closed.", "Time Elapsed");
-            //this.Close();
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            int RealXPos = e.X - (int)_mapOffset.getX();
-            int RealYPos = e.Y - (int)_mapOffset.getY();
+            int RealXPos = e.X - (int)_mapOffset.x;
+            int RealYPos = e.Y - (int)_mapOffset.y;
 
             int GridXClick = RealXPos / _tileSize;
             int GridYClick = RealYPos / _tileSize;

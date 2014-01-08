@@ -71,13 +71,13 @@ namespace AStar
 
         public int XCoord()
         {
-            int i = (int)_coords.getX();
+            int i = (int)_coords.x;
             return i;
         }
 
         public int YCoord()
         {
-            int i = (int)_coords.getY();
+            int i = (int)_coords.y;
             return i;
         }
     }

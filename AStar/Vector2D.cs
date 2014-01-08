@@ -11,6 +11,18 @@ namespace AStar
         private float _x;
         private float _y;
 
+        public float x
+        {
+            get { return _x; }
+            set { _x = value; }
+        }
+
+        public float y
+        {
+            get { return _y; }
+            set { _y = value; }
+        }
+
         public Vector2D(float x, float y)
         {
             _x = x;
@@ -22,10 +34,5 @@ namespace AStar
             _x = 0;
             _y = 0;
         }
-
-        public void setX(float x) { _x = x; }
-        public void setY(float y) { _y = y; }
-        public float getX() { return _x; }
-        public float getY() { return _y; }
     }
 }
