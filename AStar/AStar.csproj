@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="Counter.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="NPC.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vector2D.cs" />

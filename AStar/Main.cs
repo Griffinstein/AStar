@@ -21,6 +21,7 @@ namespace AStar
         private int _WIDTH = 800;
         private int _HEIGHT = 600;
         private Counter _player;
+        private NPC _enemy;
         private bool _updateWorld = true;
 
         public Main()
@@ -48,11 +49,13 @@ namespace AStar
                                         {1,0,1,1,1,0,0,0,0,1,1,0,0,0,1,1,0,0,1,1},
                                         {1,0,0,0,0,0,1,0,0,1,1,1,1,1,1,1,0,0,1,1},
                                         {1,0,1,0,0,1,1,1,0,1,1,1,1,1,1,0,0,0,1,1},
-                                        {1,0,1,0,0,0,1,0,0,1,1,1,1,1,0,0,0,1,1,1},
-                                        {1,0,1,0,0,0,0,0,0,1,1,1,1,0,0,0,1,1,1,1},
-                                        {1,0,1,1,1,1,0,0,0,1,1,1,0,0,0,1,1,1,1,1},
+                                        {1,0,1,0,0,0,1,0,0,1,1,1,1,1,0,0,0,0,1,1},
+                                        {1,0,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1},
+                                        {1,0,1,1,1,1,0,0,0,1,1,1,0,0,0,0,1,1,1,1},
                                         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1},
                                         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
+
+            _enemy = new NPC(new Vector2D(1, 1), new Vector2D(2, 2), _grid);
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -63,9 +66,11 @@ namespace AStar
             g = e.Graphics;
 
             formGraphics.FillRectangle(myPlayerBrush, _player.Draw(_mapOffset));
+            formGraphics.FillRectangle(myPlayerBrush, _enemy.Draw(_mapOffset));
 
             if (_updateWorld)
             {
+                //_updateWorld = false;
                 int i;
                 int j;
 
@@ -93,7 +98,7 @@ namespace AStar
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-
+            _updateWorld = true;
             switch (e.KeyData)
             {
                 case Keys.Up:
@@ -158,6 +163,7 @@ namespace AStar
         private void MyTimer_Tick(object sender, EventArgs e)
         {
             _player.Update();
+            _enemy.UpdateNPC();
 
             this.Refresh();
         }

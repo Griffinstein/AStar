@@ -6,16 +6,16 @@ namespace AStar
 {
     class Counter
     {
-        private Vector2D _currentCoord = new Vector2D();
-        private Vector2D _targetCoord = new Vector2D();
-        private Vector2D _nextCoord = new Vector2D();
-        private Vector2D _currentPosition = new Vector2D();
-        private Rectangle _icon = new Rectangle(0, 0, 25, 25);
-        private List<Node> _openList = new List<Node>();
-        private int _speed = 5;
+        protected Vector2D _currentCoord = new Vector2D();
+        protected Vector2D _targetCoord = new Vector2D();
+        protected Vector2D _nextCoord = new Vector2D();
+        protected Vector2D _currentPosition = new Vector2D();
+        protected Rectangle _icon = new Rectangle(0, 0, 25, 25);
+        protected List<Node> _openList = new List<Node>();
+        protected int _speed = 5;
         public int[,] tempGrid = new int[20, 20];
-        private Node _path;
-        private bool _foundPath = false;
+        protected Node _path;
+        protected bool _foundPath = false;
 
         public Counter(int x, int y)
         {
